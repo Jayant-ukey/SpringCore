@@ -1,0 +1,62 @@
+Topic 1. Spring IOC
+------------------------
+
+-> Jars need to create spring project : 1.Spring-core, 2.Spring-context.
+
+
+Spring Framework - 1. Create objects for you. 2. Can manage objects for you.
+
+How spring will do it?
+- Spring have container for them. and all the objects that you create spring going to manage it for you. This conatiner contains the objects, and this objects that spring creates called as bean.
+- So all the objects that spring creates and manages are called as spring beans.
+
+
+
+config file : We have one config file where we mention all the classes whose object we want to create.
+IOC Container : Spring has it own container called IOC containeer and it doesn't depends on anyone.
+				Like JSP, servelt we need to deploy it on tomcat which is 3rd party. But for spring we don't need that.
+				This container is going to create objects for whatever class you mention in the config file. and it going to manage it inside this container.
+				
+				
+				
+Q: If spring creates 3 objects A, B, C, and you want to create object of a then how will you do it?
+Ans : Spring have one method called getBean(). This will help you to create object. Like getBean("A"). Same for B and C class object.
+
+
+Q: If you want to make container then there are 2 types of IOC Container:
+1. BeanFactory   2. ApplicationContext.
+- Both BeanFactory and ApplicationContext are interface.
+- For ApplicationContext interface there is implementation class is present named as ClassPathXmlApplicationContext.
+- Inside ClassPathXmlApplicationContext we need to pass which config file we need to create. SO we need to pass it here.
+
+Ex: ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+- We need to create config file here beans.xml in the class path. Otherwise there is need to pass full path.
+
+------------------------------------
+
+Config file- here beans.xml
+- Inside bean tag we need to pass class and id. In class we need to provide fully qualified path, and we can access this class using id.
+- So when conatiner create the object then we are going to track it using the id. whatever we provide in id will became reference. That's the use of id tag.
+	If we pass id = student then it will become the reference internallly (Student student = new Student())
+	
+	
+-----------------------------------
+
+- Spring inversion of control
+Ans : 1. Spring framework takes control and creates object for us. 2. Managing our objects. 3. Helping our application to be configurable. 4. Managing dependencies.
+
+
+- What xsd and dtd do?
+Ans: 1. It validates the tag for us. 
+	 2. track the schema location or xsd or dtd and check tags are proper or not.
+	 
+	 
+Spring IOC: IOC means Inversion of Control. It means, rather than we creating the java objects, spring will create the objects.
+Spring Bean: In spring terminology, java object is called a bean. The java objects that are stored in container are called beans.
+
+
+-----------------------------------
+
+Things to remember while developement :-
+1. xml file must be present in the resource folder (otherwise you need to provide fully qualified path) if you are making maven project.
+2. Under bean tag provide path from folder name to class name in the given format :- com.springcore.selenium.Airtel
