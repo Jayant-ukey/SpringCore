@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+	
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+		"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+		
+<beans>
+	<!-- Here we are creating the bean(object) for MathCheat class outside. So how many times we will call the method present in this class, it will create only object, which you can check via how many times constructor has been called-->
+	<bean id="mathCheatObject" class="com.seleniumexpress.di.MathCheat"> </bean>
+	
+	<bean id="stu" class="com.seleniumexpress.di.Student">
+		<property name="id" value="101"></property>
+		<!-- We can called bean(object) using ref attribute-->
+		<property name="mathCheat" ref="mathCheatObject"></property>
+	</bean>
+	
+	<bean id="secStu" class="com.seleniumexpress.di.AnotherStudent">
+		<property name="cheat" ref="mathCheatObject"></property>
+	</bean>
+</beans>
