@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+		"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+		
+<beans>
+	<bean id="stu" class="com.seleniumexpress.di.Student">
+		<property name="id" value="101"></property>
+		
+		<!-- This is the bad way, because if we create beans like that, then for every student a separate bean need to create, which will consume more meomory-->
+		<property name="mathCheat">
+			<bean class="com.seleniumexpress.di.MathCheat">	</bean>
+		</property>
+	</bean>
+	
+	<bean id="secStu" class="com.seleniumexpress.di.AnotherStudent">
+		<property name="mathCheat">
+			<bean class="com.seleniumexpress.di.MathCheat"></bean>
+		</property>
+	</bean>
+</beans>
