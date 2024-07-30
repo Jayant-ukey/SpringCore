@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+			"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+			
+<beans>
+	<bean id="heartObj" class="com.seleniumexpress.autowired.Heart" ></bean>
+	
+	<bean id="humanObj" class="com.seleniumexpress.autowired.Human">
+	
+		<!-- Normal way to inject dependency to the reference variable-->
+		<property name="heart" ref="heartObj" />
+	</bean>
+</beans>
