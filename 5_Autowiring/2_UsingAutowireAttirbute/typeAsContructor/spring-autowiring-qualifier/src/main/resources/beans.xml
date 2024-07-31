@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:myns="http://www.mycompany.example/schema/myns"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.mycompany.example/schema/myns http://www.mycompany.com/schema/myns/myns.xsd">
+
+<!-- you can get xsd defination by searching xml schema defination in spring documentation-->
+	 
+	 <bean id="heartObj" class="com.seleniumexpress.autowired.Heart"></bean>
+	 
+	 <bean id="humanObj" class="com.seleniumexpress.autowired.Human" autowire="constructor"></bean>
+
+</beans>
