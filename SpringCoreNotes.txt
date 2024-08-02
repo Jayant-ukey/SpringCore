@@ -1,0 +1,226 @@
+Topic 1. Spring IOC
+------------------------
+
+-> Jars need to create spring project : 1.Spring-core, 2.Spring-context.
+
+
+Spring Framework - 1. Create objects for you. 2. Can manage objects for you.
+
+How spring will do it?
+- Spring have container for them. and all the objects that you create spring going to manage it for you. This conatiner contains the objects, and this objects that spring creates called as bean.
+- So all the objects that spring creates and manages are called as spring beans.
+
+
+
+config file : We have one config file where we mention all the classes whose object we want to create.
+IOC Container : Spring has it own container called IOC containeer and it doesn't depends on anyone.
+				Like JSP, servelt we need to deploy it on tomcat which is 3rd party. But for spring we don't need that.
+				This container is going to create objects for whatever class you mention in the config file. and it going to manage it inside this container.
+				
+				
+				
+Q: If spring creates 3 objects A, B, C, and you want to create object of a then how will you do it?
+Ans : Spring have one method called getBean(). This will help you to create object. Like getBean("A"). Same for B and C class object.
+
+
+Q: If you want to make container then there are 2 types of IOC Container:
+1. BeanFactory   2. ApplicationContext.
+- Both BeanFactory and ApplicationContext are interface.
+- For ApplicationContext interface there is implementation class is present named as ClassPathXmlApplicationContext.
+- Inside ClassPathXmlApplicationContext we need to pass which config file we need to create. SO we need to pass it here.
+
+Ex: ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+- We need to create config file here beans.xml in the class path. Otherwise there is need to pass full path.
+
+------------------------------------
+
+Config file- here beans.xml
+- Inside bean tag we need to pass class and id. In class we need to provide fully qualified path, and we can access this class using id.
+- So when conatiner create the object then we are going to track it using the id. whatever we provide in id will became reference. That's the use of id tag.
+	If we pass id = student then it will become the reference internallly (Student student = new Student())
+	
+	
+-----------------------------------
+
+- Spring inversion of control
+Ans : 1. Spring framework takes control and creates object for us. 2. Managing our objects. 3. Helping our application to be configurable. 4. Managing dependencies.
+
+
+- What xsd and dtd do?
+Ans: 1. It validates the tag for us. 
+	 2. track the schema location or xsd or dtd and check tags are proper or not.
+	 
+	 
+Spring IOC: IOC means Inversion of Control. It means, rather than we creating the java objects, spring will create the objects.
+Spring Bean: In spring terminology, java object is called a bean. The java objects that are stored in container are called beans.
+
+
+-----------------------------------
+
+Things to remember while developement :-
+1. xml file must be present in the resource folder (otherwise you need to provide fully qualified path) if you are making maven project.
+2. Under bean tag provide path from folder name to class name in the given format :- com.springcore.selenium.Airtel
+
+===============================================================================================================================================================
+
+
+Topic 2: Dependency Injection
+----------------------------
+ 
+- Dependency injection is a way of passing the dependencies of an object to that object, rather than having the object create its own dependencies.
+	Let's understand with the help of an example. Lets say we have a class Name as Me. and this Me class is dependent on many things like name, phoneNo, Family, House, Job, like that.
+	SO we have a class where we declare all this variables, objects and collection.
+	But we are not going to initialize it inside that class, as it will be consider as hard-coding.
+	Spring will provide the facility that where we are going to initialize all this things and spring will take care that he will initialize all the things properly to that particular objects and variables.
+ 
+- Dependenices can be in the form of 1. Literals 2. Object 3.Collection.
+
+- There are 3 types of dependency injections:-
+	1. Constructor Injection(E.g Pico Container, Spring supports it).
+	2. Setter Injection(E.g Spring supports it).
+	3. Interface Injection(E.g Avalon, Spring does not support it).
+	
+	Spring supports only constructor and setter based injection.
+
+
+===============================================================================================================================================================
+
+
+Topic 3: Setter and Constructor Injection
+
+
+1. Setter Injection
+
+- Lets take an example of Student class. This Student class have one dependency named as studentName, and having setter also inside that class.
+- Now if you want to inject that dependency then we have property tag. Inside that property tag we need to provide name  and value for that particular dependency.
+
+2. Constructor- Injection
+- For constructor injection we use <constructor-args> tag.
+
+Note: When you are passing integer value in the property or constructor tag then spring internally parse that value from String to int. So we don't need to 
+	  take care of that. Otherwise you can explecitly passed type="int" like that.
+	  for string type we need to use type = "java.lang.String" because String is a class.
+	  
+	  - In Spring 3 we can use name as a attribute where we can directly pass varaibale 
+	  - But in our project we are using version 6. So we need to use index attribute. It doesn't support name attribute.
+
+
+================================================================================================================================================================
+
+Imp points to recap:
+
+1. Bean tag :- It is used to create objects.
+
+2. What does dependency means?
+Ans: Whatever the variable or reference variable that we are making inside of a class are called as dependency.
+	for ex- If we have student class then rollNo, name, Subjects(Class reference varaible) that will be ur dependencies.
+	
+3. proeprty tag : It is used to perform setter injection.
+
+4. constructor-arg : It is used to perform constructor injection.
+
+================================================================================================================================================================
+30-07-24
+
+Topic 4: Autowiring:
+
+=>Autowiring means inject object dependencies automatically.
+=>@Autowired is a mechanism by which Spring Boot automatically resolves and injects collaborating beans into your objects. 
+
+
+- If in configuration file. If any class having dependency over other class. Then we are not setting the dependency explicitly by putting the property tag. We simply use autowire attribute inside bean tag.
+
+example: 
+	<beans>
+		<bean id="heart" class="com.seleniumexpress.autowired.Heart" ></bean>
+
+		<bean id="humanObj" class="com.seleniumexpress.autowired.Human" autowire="byName">
+		
+		</bean>
+	</beans>
+
+-------------------------------------------------------------------------
+
+1. If we do autowire = "byName"
+	Then Class reference variable name and bean id name need to match.
+	
+
+2. autowire="byTpe"
+	The type of variable(Heart) and type of the bean(com.seleniumexpress.autowire.Heart) must matched.
+	
+3. autowire= "Constructor"
+	-> For this we need to provide constructor injection. Then it's possible.
+
+	
+--------------------------------------------------------------------------
+
+Pros and cons of autowire:
+
+- If you have to many dependency let's say near about 50-100. It's good if we normally perform it. It will help you to debug easily.
+- But if you have near about 5-10 dependencies then you can use autowiring concept.
+
+--------------------------------------------------------------------------
+
+Note: 
+1. If your program don't have any cosntructor then JVM going to make constructor for you. But if you are using parameterized cosntructor in your program then you need to create default cosntructor. Here JVM will not create default constructor for you.
+
+2. You can have constructor and setter both under one class. But which injection you want to perform it totally depends on you.
+
+------------------------------------------------------------------------------
+Autowired annotation
+
+	
+-> You can use Autowired annotation in front of setter or in front of cosntructor to perform that particular injection.
+-> Autowired annotation is by-default inactivate we need to activate it using <context:annotation-config./> in the beans.xml file.
+
+-> While performing constructor injection it is possible that it will not create the object for that particular bean. Because for object creation we need contructor like :
+	Human human = new Human().
+	Here Human() is a constructor.
+	But while doing cosntructor injection we are overriding default constructor.
+	If we overriding default constructor then JVM will not create default constructor for us. We need to create it by ouerself only.
+
+
+-> If we want to perform setter injection then provide @Autowired annotation above setter method, for constructor injection put it above constructor.
+
+
+Que: Autowiring is not possible for primitive or String type. Why?
+Ans: How spring could know my data that I wanted to enter? eg: my rollNo, myName, etc..
+
+
+Que: How @Autowired annotation works?
+ans: 1. First it try to resolve with "byType".
+	2. if byTyoe fails then it goes with "byName".
+	
+
+Que : Why there is need of @Qualifier annotation
+Ans:  To specify for which bean we need to create object. for more see example -> Autowiring with qualifier annotation .
+
+Que: Do we need to write settter/constructor if you are using @Autowired before the dependency?
+Ans: No, it will work properly without setter and constructor if we are writing @AutoWired before dependecy.
+
+Que: Then how it is working? How it is doing dependency injection?
+Ans: 1.If match is found for what we pass in Qualifier annotation in the beans.xml file then it will directly create object and inject that to the dependency.
+
+	-> In short Spring will directly create and inject your object to the match depndency. No setter required.
+
+
+================================================================================================================================================================
+
+1-08-24
+
+Injecting literal values from properties file using spring annotations || @value || @Required
+
+
+-> Since Spring 5.1, usage of @Required is deprecated, and you should instead just use constructor injection in place of setter injection if you have a required property.
+
+You should use constructor injection for mandatory dependencies and setter injections for optional dependencies instead of field injection.
+Some reasons why:
+	It makes it clear to everybody which dependencies are required
+	It makes testing easier
+	You can make your objects immutable
+	
+
+-> If you are using @Value annotation before dependencies/data variables then you don't need setter or constructor.
+
+-> To activate Value annotations or any annotation we need to have context path in configuration file and need to add tag (	<context:annotation-config />)
+================================================================================================================================================================
