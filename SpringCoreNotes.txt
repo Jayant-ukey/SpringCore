@@ -224,3 +224,28 @@ Some reasons why:
 
 -> To activate Value annotations or any annotation we need to have context path in configuration file and need to add tag (	<context:annotation-config />)
 ================================================================================================================================================================
+05-08-24
+Spring annotations
+
+
+1. @Component: By using @Component annotation we can create a bean.
+
+2. @ComponenetScan: - It is mostly used with @Configration annotation. 
+					- Like in beans.xml(Configuration file), we need to pass base package location. Like that we need to pass basepackages here. We can pass more than one base package.
+					- This annotation is used to specify the packages that we want to be scanned.
+					
+3. @Configuration :- 
+					@Configuration annotation indicates that a class declares one or more @Bean methods and may be processed by the Spring container to generate bean definitions and service requests for those beans at runtime. 
+																		Or
+					@Configuration annotation indicates that the class has @Bean definition methods. So Spring container can process the class and generate Spring Beans to be used in the application.
+					
+					
+- There are 3 methods to create bean:
+	1. Using bean tag in xml file.
+	2. Using @Component annotation.
+	3. Using @Bean annotation before method.
+	
+4. @Bean: This annotation is also used to create a bean.
+			- By default bean name will be the method name above which we used Bean annotation.
+			- If we want to give different name then we can pass name in bean annotation like - @Bean(name="beanName")
+			- We can give multiple names also to the bean like @Bean(name = {"colBean", "AnotherCollegeBean"})
