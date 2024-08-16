@@ -6,16 +6,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class College {
 	
-	@Autowired
 	private Principal principal;
 	
-	@Autowired
 	private Teacher teacher;
 		
+	@Autowired
 	public void setPrincipal(Principal principal) {
 		this.principal = principal;
 	}
 	
+	@Autowired
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
 	}
