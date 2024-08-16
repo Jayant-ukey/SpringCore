@@ -229,6 +229,7 @@ Spring annotations
 
 
 1. @Component: By using @Component annotation we can create a bean.
+		-> Inside @Componenet annotation we need to pass bean id. This bean id get read through xml file only via <context:component-scan> tag where we passing the base package location.
 
 2. @ComponenetScan: - It is mostly used with @Configration annotation. 
 					- Like in beans.xml(Configuration file), we need to pass base package location. Like that we need to pass basepackages here. We can pass more than one base package.
