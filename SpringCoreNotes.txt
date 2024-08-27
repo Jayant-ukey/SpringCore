@@ -1,4 +1,4 @@
-Topic 1. Spring IOC
+	Topic 1. Spring IOC
 ------------------------
 
 -> Jars need to create spring project : 1.Spring-core, 2.Spring-context.
@@ -229,7 +229,9 @@ Spring annotations
 
 
 1. @Component: By using @Component annotation we can create a bean.
+		-> @Componenet tag we can use with both. Means with xml file or with @Configuration annotation.
 		-> Inside @Componenet annotation we need to pass bean id. This bean id get read through xml file only via <context:component-scan> tag where we passing the base package location.
+		-> If we are using @Componenet annotation and didn't provide bean id inside @Component tag. Then by default it take the name of that class as bean id, with first letter of class as small letter.
 
 2. @ComponenetScan: - It is mostly used with @Configration annotation. 
 					- Like in beans.xml(Configuration file), we need to pass base package location. Like that we need to pass basepackages here. We can pass more than one base package.
@@ -250,3 +252,12 @@ Spring annotations
 			- By default bean name will be the method name above which we used Bean annotation.
 			- If we want to give different name then we can pass name in bean annotation like - @Bean(name="beanName")
 			- We can give multiple names also to the bean like @Bean(name = {"colBean", "AnotherCollegeBean"})
+			
+			
+-> If we are using Bean annotation we use it before method and inside configuration class file. So it take care of creating object and injecting dependency.
+
+-> Whereas if we are using @Componenet annotation then we need to use @Autowired annotation before dependency in order to inject that dependencies.
+
+-> @Qualifier , @Primary annotations are used when we implements interface for multiple classes. 
+	Primary annoattion is use to make that class as default, means if we forget then it will auomatically consider Primary class.
+	Whereas Qualifier annotation is use to decide which class we need to call.
