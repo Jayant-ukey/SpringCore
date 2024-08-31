@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<!-- bean definitions here -->
+	<bean id="student" class="com.seleniumexpress.beanlifecycle.StudentDao">
+		<property name="driver" value="com.mysql.cj.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/acetdb"></property>
+		<property name="userName" value="rgcer-manager"></property>
+		<property name="password" value="admin@123"></property>
+	</bean>
+
+
+	<!-- without using annotaion context config we can use postconstruct and preDestroy annotation. More details in Day8 notes.-->
+	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+</beans>
