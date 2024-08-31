@@ -162,7 +162,7 @@ Pros and cons of autowire:
 --------------------------------------------------------------------------
 
 Note: 
-1. If your program don't have any cosntructor then JVM going to make constructor for you. But if you are using parameterized cosntructor in your program then you need to create default cosntructor. Here JVM will not create default constructor for you.
+1. If your program don't have any constructor then JVM going to make constructor for you. But if you are using parameterized constructor in your program then you need to create default constructor. Here JVM will not create default constructor for you.
 
 2. You can have constructor and setter both under one class. But which injection you want to perform it totally depends on you.
 
@@ -170,13 +170,13 @@ Note:
 Autowired annotation
 
 	
--> You can use Autowired annotation in front of setter or in front of cosntructor to perform that particular injection.
+-> You can use Autowired annotation in front of setter or in front of constructor to perform that particular injection.
 -> Autowired annotation is by-default inactivate we need to activate it using <context:annotation-config./> in the beans.xml file.
 
 -> While performing constructor injection it is possible that it will not create the object for that particular bean. Because for object creation we need contructor like :
 	Human human = new Human().
 	Here Human() is a constructor.
-	But while doing cosntructor injection we are overriding default constructor.
+	But while doing constructor injection we are overriding default constructor.
 	If we overriding default constructor then JVM will not create default constructor for us. We need to create it by ouerself only.
 
 
@@ -195,7 +195,7 @@ ans: 1. First it try to resolve with "byType".
 Que : Why there is need of @Qualifier annotation
 Ans:  To specify for which bean we need to create object. for more see example -> Autowiring with qualifier annotation .
 
-Que: Do we need to write settter/constructor if you are using @Autowired before the dependency?
+Que: Do we need to write setter/constructor if you are using @Autowired before the dependency?
 Ans: No, it will work properly without setter and constructor if we are writing @AutoWired before dependecy.
 
 Que: Then how it is working? How it is doing dependency injection?
@@ -261,3 +261,114 @@ Spring annotations
 -> @Qualifier , @Primary annotations are used when we implements interface for multiple classes. 
 	Primary annoattion is use to make that class as default, means if we forget then it will auomatically consider Primary class.
 	Whereas Qualifier annotation is use to decide which class we need to call.
+
+================================================================================================================================================================
+
+27-08-24
+
+Topic 8: Bean_Life_Cycle
+
+Where beans are actually getting created?
+- Beans are getting created inside the container, and a container is nothing but the ApplicationContext.
+
+Step 1 : object created inside container.
+- Inside container all the objects/beans that you are creating will be get maintained by Spring Framework. and the objects that spring framework maintains called as beans, and beans are actually inside the container.
+- So it's the container responsibility that will create the object and that will manage the object inside itself.
+
+Step 2: Dependency injected
+- Next spring framework will inject all the dependency from the class to bean.
+
+Step 3: Init method called
+- Once it inject all the dependency, init method will get called.
+
+
+------------------------------------------------
+Different Ways of achieving bean-life-cycle
+
+1. Using annotation:
+@PostConstruct 
+- Annotate a method with @PostConstruct it will act as init method.
+- Once the object got created(Means all the dependency operation got performed) this init method get called, that's why the annotation name is @PostConstruct. Which means after construction of bean.
+
+@PreDestroy
+- to clean up unused reference we use this annotation. Example:- con.close()
+- this destroy method will be called before the bean is removed from the container.
+
+IMP: Remember that the destroy method will only be called once your container objet got destroyed/closed.
+- Both @PostConstruct and @PreDestroy annotations are part of Java EE. And since Java EE has been deprecated in Java 9 and removed in Java 11 we have to add an additional dependency to use these annotations.
+
+------------------------------------------------
+
+Difference between standalone and web application.
+
+- Here we are not dealing with any URL. So our applications are standalone application.
+
+Standalone application:
+//Creating container object manually 
+ApplicationContext context = new ClassPathXmlApplicationContext();
+
+// Destroying container object manually
+context.close()
+
+
+Web Application:
+- You don't need to create and destroy the container object. This will be automatically done. 
+- In web application it's not our responsibility to start and close the application context.
+
+
+-> In a standalone application we can correctly stop/destroy the ApplicationContext by calling the close() or registerShutdownHook().
+
+-> applicaionContext.close() will destroy the container object. But it will wait to run destroy() method, which is present in any of the bean (object).
+So in our case first the destroy method which is present in StudentDao class will call first. then applicationContext.close() will close the connection.
+
+----------------------------------------------------------------
+
+1.b: Without using <context:annotation-config/>
+
+- Without using <context:annotation-config/>, we can initialize CommonAnnotationBeanPostProcessor class to activate @PostConstruct/ @PreDestroy annotation.
+- CommonAnnotationBeanPostProcessor is a class developed by spring programmer. This class comes free with your spring jars. You just need to instantiate it and use it. 
+- This class is inside org.springframework.context.annotation package.
+
+
+=================================================================================
+
+2.Bean life-cycle with xml-configuration
+
+2.a : init-method and destroy-method used to specify the lifecycle methods in xml.
+
+
+*************
+Interview Que :
+1. What registerShutdownHook() does?
+Ans: context.close() and registerShutdownHook() do the same work of closing the connection.
+- But registerShutdownHook() will execute once the main thread() ends. SO once all your codes get executed, it will be called and close your container. *So it won't give us any exception irrespective of the line no we are calling it*.
+- Whereas if we call context.close() it will close the container where we call this line, and after this line if we try to access the container it may throw an exception.
+
+
+2. WHat is AbstractApplicationContext
+Ans: It is the Abstract class which implements the ApplicationCOntext interface.
+- We can create container using this class also, like:
+AbstratcApplicationContext context = new ClassPathXmlApplicationContext("beans.xml")
+
+
+Problem: WHat if the multiple classes in our project contains init and desroy mehods?
+	We need to define init and destroy for each bean? (100 times for 100 beans?)
+Sol : By passing default-init-method and default-destroy-method inside main beans tag we can achieve it.
+
+
+Imp: -Life cycle methods are also called as call back methods as these methods are automatically called by the framework.
+	- There are 3 ways to configure life cycle methods in spring 
+	1. Annotation Approach
+	2. XML Approach
+	3. By implementing interface approach.
+	- Implementing interface approach is mostly not recommended. Lets learn it for understanding purpose.
+
+
+=================================================================================
+
+3. Bean life cycle using interface appraoch:
+
+- For this appraoch we need to implement 2 interface InitializingBean, DisposableBean.
+- InitializingBean interface having one init method named as afterPropertiesSet that we need to override.
+- and DisposableBean implement having destroy method.
+
