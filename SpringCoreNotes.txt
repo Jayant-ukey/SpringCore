@@ -174,7 +174,7 @@ Autowired annotation
 -> Autowired annotation is by-default inactivate we need to activate it using <context:annotation-config./> in the beans.xml file.
 
 -> While performing constructor injection it is possible that it will not create the object for that particular bean. Because for object creation we need contructor like :
-	Human human = new Human().
+ 	Human human = new Human().
 	Here Human() is a constructor.
 	But while doing constructor injection we are overriding default constructor.
 	If we overriding default constructor then JVM will not create default constructor for us. We need to create it by ouerself only.
@@ -193,7 +193,7 @@ ans: 1. First it try to resolve with "byType".
 	
 
 Que : Why there is need of @Qualifier annotation
-Ans:  To specify for which bean we need to create object. for more see example -> Autowiring with qualifier annotation .
+Ans:  To specify for which bean we need to create object. for more see example -> Autowiring with qualifier annotation . 
 
 Que: Do we need to write setter/constructor if you are using @Autowired before the dependency?
 Ans: No, it will work properly without setter and constructor if we are writing @AutoWired before dependecy.
@@ -372,3 +372,64 @@ Imp: -Life cycle methods are also called as call back methods as these methods a
 - InitializingBean interface having one init method named as afterPropertiesSet that we need to override.
 - and DisposableBean implement having destroy method.
 
+***************************************************************************************************
+
+In Spring Framework, the scope of a bean defines the lifecycle and visibility of that bean within the application context. Spring supports several scopes, which can be set using annotations or XML configuration. Here’s a breakdown of the most commonly used scopes:
+
+1.  Singleton: 
+	Description: Only one instance of the bean is created per Spring IoC container. This instance is shared across the application.
+	Default Scope: This is the default scope if none is specified.
+	Use Case: Suitable for stateless beans, where shared state is not an issue
+	
+	@Bean
+	@Scope("singleton")
+	public MyBean myBean() {
+		return new MyBean();
+	}
+	
+2. Prototype
+	Description: A new instance of the bean is created each time it is requested from the container.
+	Use Case: Useful for stateful beans where each client needs a separate instance.
+
+	@Bean
+	@Scope("prototype")
+	public MyBean myBean() {
+		return new MyBean();
+	}
+
+
+3. Request
+	Description: A new instance is created for each HTTP request. It is applicable only in a web-aware Spring application context.
+	Use Case: Useful for web applications where each request should have its own bean instance.
+
+	@Bean
+	@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
+	public MyBean myBean() {
+		return new MyBean();
+	}
+
+
+4. Session
+	Description: A new bean instance is created for each HTTP session. Like request scope, this is only applicable in a web context.
+	Use Case: Useful for web applications where you want to maintain state for a user's session.
+
+	@Bean
+	@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
+	public MyBean myBean() {
+		return new MyBean();
+	}
+
+
+5. Global Session
+	Description: Similar to session scope but used for portlet applications. It creates a new instance for each global HTTP session.
+	Use Case: Relevant only in specific portlet environments.
+
+
+6. Application
+	Description: A single instance is created for the lifecycle of a ServletContext. It's similar to singleton but scoped to the application context in web applications.
+	Use Case: Useful for beans that need to be shared across the entire application.
+
+
+7. Websocket
+	Description: A new bean instance is created for each WebSocket session.
+	Use Case: Useful in applications that utilize WebSockets for real-time communication.
