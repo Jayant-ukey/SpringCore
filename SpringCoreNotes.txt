@@ -39,6 +39,7 @@ Dependency Injection (DI): This is the technique Spring uses to inject dependenc
 Constructor-based DI: Dependencies are provided to a bean through its constructor.
 Setter-based DI: Dependencies are provided to a bean through setter methods.
 Field-based DI: Dependencies are injected directly into fields (usually with annotations like @Autowired).
+
 Spring Container: The container manages the beans' lifecycle and their dependencies. The container can be configured using XML configuration files or Java-based annotations.
 
 Configuration: The container configuration can be in two ways:
