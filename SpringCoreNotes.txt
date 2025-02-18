@@ -21,7 +21,14 @@ IOC Container : Spring has it own container called IOC containeer and it doesn't
 				
 Q: If spring creates 3 objects A, B, C, and you want to create object of a then how will you do it?
 Ans : Spring have one method called getBean(). This will help you to create object. Like getBean("A"). Same for B and C class object.
+--------------------------------------------------------------------------
 
+Spring IOC (Inversion of Control) is a core concept in the Spring Framework, designed to achieve loose coupling in software applications. It is also known as the Spring Dependency Injection (DI) container. Let's break it down:
+
+What is IOC (Inversion of Control)?
+Inversion of Control refers to the concept where the control of object creation and dependency management is inverted. Traditionally, in object-oriented programming, a class is responsible for creating its dependencies. However, in IOC, the responsibility of creating objects and managing their dependencies is transferred to the Spring container.
+
+-----------------------------------------------------------------------------
 
 Q: If you want to make container then there are 2 types of IOC Container:
 1. BeanFactory   2. ApplicationContext.
