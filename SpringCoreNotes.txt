@@ -28,6 +28,25 @@ Spring IOC (Inversion of Control) is a core concept in the Spring Framework, des
 What is IOC (Inversion of Control)?
 Inversion of Control refers to the concept where the control of object creation and dependency management is inverted. Traditionally, in object-oriented programming, a class is responsible for creating its dependencies. However, in IOC, the responsibility of creating objects and managing their dependencies is transferred to the Spring container.
 
+How does it work in Spring?
+In Spring, the IOC container is responsible for managing the lifecycle of beans (objects) and their dependencies. The container is initialized, and Spring automatically injects the necessary dependencies into the beans when required.
+
+Key Concepts:
+Beans: These are the objects managed by the Spring container. Beans are instantiated, configured, and assembled by the container.
+
+Dependency Injection (DI): This is the technique Spring uses to inject dependencies into a bean. Spring supports three types of Dependency Injection:
+
+Constructor-based DI: Dependencies are provided to a bean through its constructor.
+Setter-based DI: Dependencies are provided to a bean through setter methods.
+Field-based DI: Dependencies are injected directly into fields (usually with annotations like @Autowired).
+Spring Container: The container manages the beans' lifecycle and their dependencies. The container can be configured using XML configuration files or Java-based annotations.
+
+Configuration: The container configuration can be in two ways:
+
+XML-based Configuration: Defining beans in an XML file (e.g., applicationContext.xml).
+Annotation-based Configuration: Using annotations like @Component, @Autowired, and @Configuration to define and manage beans in Java classes.
+Application Context: The ApplicationContext is the central interface to the Spring IOC container, providing functionality to retrieve beans, manage configurations, and more.
+
 -----------------------------------------------------------------------------
 
 Q: If you want to make container then there are 2 types of IOC Container:
