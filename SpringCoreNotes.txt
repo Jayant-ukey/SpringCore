@@ -22,7 +22,11 @@ IOC Container : Spring has it own container called IOC containeer and it doesn't
 Q: If spring creates 3 objects A, B, C, and you want to create object of a then how will you do it?
 Ans : Spring have one method called getBean(). This will help you to create object. Like getBean("A"). Same for B and C class object.
 --------------------------------------------------------------------------
+Que: What is Spring Framework:
 
+The Spring Framework is an open-source framework for building Java-based enterprise applications. It provides comprehensive infrastructure support for developing Java applications and simplifies complex tasks, such as handling transactions, managing data, and setting up application components
+
+------------------------------------------------------------------------------
 
 Que. What are the advantages of using spring framework?
 
