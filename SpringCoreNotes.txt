@@ -26,6 +26,7 @@ Que: What is Spring Framework:
 
 The Spring Framework is an open-source framework for building Java-based enterprise applications. It provides comprehensive infrastructure support for developing Java applications and simplifies complex tasks, such as handling transactions, managing data, and setting up application components
 
+Here Infrastructure support refers to handling common backend concerns so developers can focus on business logic instead of boilerplate.
 ------------------------------------------------------------------------------
 
 Que. What are the advantages of using spring framework?
