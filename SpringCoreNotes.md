@@ -262,16 +262,30 @@ ans: 1. First it try to resolve with "byType".
 	2. if byTyoe fails then it goes with "byName".
 	
 
-Que : Why there is need of @Qualifier annotation
-Ans:  To specify for which bean we need to create object. for more see example -> Autowiring with qualifier annotation . 
+Que -> Qualifier annotation
+	- In Spring Boot (Spring Framework), @Qualifier is used to resolve ambiguity when multiple beans of the same type exist in the application context.
+	In short - "@Qualifier is used in Spring to specify which bean should be injected when multiple beans of the same type are available in the application context."
 
-Que: Do we need to write setter/constructor if you are using @Autowired before the dependency?
-Ans: No, it will work properly without setter and constructor if we are writing @AutoWired before dependecy.
+Why it’s needed
+	- If you have more than one bean of the same class (or interface implementation), Spring won’t know which one to inject and will throw a NoUniqueBeanDefinitionException.
+	<img width="966" height="637" alt="{FCC550DB-81BF-4ACB-A9A2-7024C1433394}" src="https://github.com/user-attachments/assets/24439208-1722-4596-ad0b-417db9556a82" />
 
-Que: Then how it is working? How it is doing dependency injection?
-Ans: 1.If match is found for what we pass in Qualifier annotation in the beans.xml file then it will directly create object and inject that to the dependency.
+	<img width="1029" height="577" alt="{7FE11B12-A342-40C3-9E62-17892FC00FC6}" src="https://github.com/user-attachments/assets/ac936972-27a1-4507-8b07-0f80936ee900" />
 
-	-> In short Spring will directly create and inject your object to the match depndency. No setter required.
+	<img width="1118" height="578" alt="{F734E3C0-8D74-4DD6-BBF2-F5AEE04FC7AC}" src="https://github.com/user-attachments/assets/1558e6e1-d8e7-4013-87a5-7d95e41da367" />
+
+
+Alternative: @Primary
+
+Instead of specifying every time, you can mark one bean as default:
+	
+	@Primary
+	@Component
+	public class EmailService implements MessageService { }
+
+Now Spring will inject EmailService unless another is explicitly qualified.
+
+
 
 
 ================================================================================================================================================================
