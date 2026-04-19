@@ -268,11 +268,34 @@ Que -> Qualifier annotation
 
 Why it’s needed
 	- If you have more than one bean of the same class (or interface implementation), Spring won’t know which one to inject and will throw a NoUniqueBeanDefinitionException.
-	<img width="966" height="637" alt="{FCC550DB-81BF-4ACB-A9A2-7024C1433394}" src="https://github.com/user-attachments/assets/24439208-1722-4596-ad0b-417db9556a82" />
 
-	<img width="1029" height="577" alt="{7FE11B12-A342-40C3-9E62-17892FC00FC6}" src="https://github.com/user-attachments/assets/ac936972-27a1-4507-8b07-0f80936ee900" />
+	@Component
+	public class EmailService implements MessageService {
+	    public String send() {
+	        return "Email sent";
+	    }
+	}
+	
+	@Component
+	public class SmsService implements MessageService {
+	    public String send() {
+	        return "SMS sent";
+	    }
+	}
 
-	<img width="1118" height="578" alt="{F734E3C0-8D74-4DD6-BBF2-F5AEE04FC7AC}" src="https://github.com/user-attachments/assets/1558e6e1-d8e7-4013-87a5-7d95e41da367" />
+	Now if you try:
+	@Autowired
+	private MessageService messageService;
+
+	❌ This fails because there are two beans of type MessageService.
+
+	Using @Qualifier
+	You can specify which bean you want:
+	@Autowired
+	@Qualifier("emailService")
+	private MessageService messageService;
+
+	Now Spring injects the EmailService bean specifically.
 
 
 Alternative: @Primary
