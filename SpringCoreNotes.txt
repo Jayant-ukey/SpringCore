@@ -333,22 +333,71 @@ Some reasons why:
 ================================================================================================================================================================
 05-08-24
 Spring annotations
+1. @Component
+	“@Component is a class-level annotation in Spring that marks a class as a Spring-managed bean. When Spring scans the application, it automatically detects this class and creates an object (bean) of it in the IoC container.”
+
+Deeper insight:
+- It’s part of Spring Framework dependency injection mechanism
+- Avoids manual bean configuration
+- Other specialized forms:
+	a. @Service → business logic
+	b. @Repository → persistence layer
+	c. @Controller → web layer
+
+- Example:
+	@Component
+		public class UserService {
+	}
+
+2. @ComponentScan
+	@ComponentScan tells Spring where to look for classes annotated with @Component and its specializations. Without it, Spring won’t know where to find these beans.
+
+Behavior:	
+	- Scans packages and sub-packages
+	- Usually placed on a configuration class
+	- If not specified, scans current package by default
+
+- Example:
+@ComponentScan(basePackages = "com.myapp")
+
+3. @Configuration
+	@Configuration is used to define a class that contains bean definitions. It tells Spring that this class provides configuration and may include methods annotated with @Bean.
+
+Deeper insight:
+	- Alternative to XML configuration
+	- Supports Java-based configuration
+	- Works together with @ComponentScan
+
+Example:
+	@Configuration
+	@ComponentScan(basePackages = "com.myapp")
+	public class AppConfig {
+	
+	    @Bean
+	    public UserService userService() {
+	        return new UserService();
+	    }
+	}
 
 
-1. @Component: By using @Component annotation we can create a bean.
-		-> @Componenet tag we can use with both. Means with xml file or with @Configuration annotation.
-		-> Inside @Componenet annotation we need to pass bean id. This bean id get read through xml file only via <context:component-scan> tag where we passing the base package location.
-		-> If we are using @Componenet annotation and didn't provide bean id inside @Component tag. Then by default it take the name of that class as bean id, with first letter of class as small letter.
+In modern Spring Boot applications, @SpringBootApplication internally combines @Configuration, @ComponentScan, and @EnableAutoConfiguration, which simplifies setup even further.
 
-2. @ComponenetScan: - It is mostly used with @Configration annotation. 
-					- Like in beans.xml(Configuration file), we need to pass base package location. Like that we need to pass basepackages here. We can pass more than one base package.
-					- This annotation is used to specify the packages that we want to be scanned.
-					
-3. @Configuration :- 
-					@Configuration annotation indicates that a class declares one or more @Bean methods and may be processed by the Spring container to generate bean definitions and service requests for those beans at runtime. 
-																		Or
-					@Configuration annotation indicates that the class has @Bean definition methods. So Spring container can process the class and generate Spring Beans to be used in the application.
-					
+
+{ - Below you can avoid reading.
+	1. @Component: By using @Component annotation we can create a bean.
+			-> @Componenet tag we can use with both. Means with xml file or with @Configuration annotation.
+			-> Inside @Componenet annotation we need to pass bean id. This bean id get read through xml file only via <context:component-scan> tag where we passing the base package location.
+			-> If we are using @Componenet annotation and didn't provide bean id inside @Component tag. Then by default it take the name of that class as bean id, with first letter of class as small letter.
+	
+	2. @ComponenetScan: - It is mostly used with @Configration annotation. 
+						- Like in beans.xml(Configuration file), we need to pass base package location. Like that we need to pass basepackages here. We can pass more than one base package.
+						- This annotation is used to specify the packages that we want to be scanned.
+						
+	3. @Configuration :- 
+						@Configuration annotation indicates that a class declares one or more @Bean methods and may be processed by the Spring container to generate bean definitions and service requests for those beans at runtime. 
+																			Or
+						@Configuration annotation indicates that the class has @Bean definition methods. So Spring container can process the class and generate Spring Beans to be used in the application.
+}					
 					
 - There are 3 methods to create bean:
 	1. Using bean tag in xml file.
