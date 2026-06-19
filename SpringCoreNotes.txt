@@ -629,3 +629,76 @@ Key points about Spring Data JPA:
 - JPA is a specification for object-relational mapping (ORM).
 - Hibernate is an implementation of the JPA specification (although it can also be used independently of JPA).
 - Spring Data JPA is a framework that makes it easier to work with JPA and reduces the need for boilerplate code in Spring-based applications by providing repositories and simplified CRUD operations.
+=====
+
+
+Que - In spring if you want to inject dependcy from a file, the how its getting done? or "In Spring, if you want to inject a dependency/value from a file, how is it done?
+
+> "In Spring, configuration values are typically stored in `application.properties` or `application.yml`. These values can be injected into beans using the `@Value` annotation or by binding them to a POJO using `@ConfigurationProperties`."
+
+### Using `@Value`
+
+**application.properties**
+
+```properties
+db.url=jdbc:mysql://localhost:3306/test
+```
+
+**Java Class**
+
+```java
+@Component
+public class DatabaseConfig {
+
+    @Value("${db.url}")
+    private String url;
+}
+```
+
+Spring reads the property file and injects the value into the field.
+
+---
+
+### Using `@ConfigurationProperties` (Preferred for Multiple Properties)
+
+**application.properties**
+
+```properties
+app.name=MyApp
+app.version=1.0
+```
+
+**POJO**
+
+```java
+@Component
+@ConfigurationProperties(prefix = "app")
+public class AppConfig {
+
+    private String name;
+    private String version;
+
+    // getters and setters
+}
+```
+
+Spring automatically binds all properties starting with `app`.
+
+---
+
+### If the interviewer asks about loading a custom properties file
+
+```java
+@Configuration
+@PropertySource("classpath:custom.properties")
+public class Config {
+}
+```
+
+Then values can be injected using `@Value`.
+
+---
+
+### Short Interview Answer
+
+> "Spring loads configuration from files such as `application.properties` or `application.yml`. We can inject individual values using `@Value`, and for a group of related properties we typically use `@ConfigurationProperties`. For custom property files, we can use `@PropertySource` to load them."
