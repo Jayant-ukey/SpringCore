@@ -66,6 +66,15 @@ Spring Cloud: For building microservices-based applications with features like s
 
 
 ------------------------------------------------------------------------
+Start (No need of above things)
+----
+
+Spring Framework is an open-source framework for developing Java-based applications, especially enterprise applications. 
+It provides infrastructure and features that simplify application development and reduce the complexity of writing and managing Java applications.
+
+Some of its key advantages are that it supports IoC and Dependency Injection, which helps us create loosely coupled and maintainable applications. It is also modular, makes testing easier, and provides support for things like web development, database access, transaction management, and security. It also has a large community and ecosystem.”
+
+-----
 Spring IOC (Inversion of Control) is a core concept in the Spring Framework, designed to achieve loose coupling in software applications. It is also known as the Spring Dependency Injection (DI) container.
 
 What is IOC (Inversion of Control)?
